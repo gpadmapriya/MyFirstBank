@@ -12,10 +12,13 @@ namespace MyFirstBank
         {
 
             Console.WriteLine("*****Welcome to my bank!****");
+            Console.WriteLine("Please provide your email address: ");
+            var email = Console.ReadLine();
             Console.WriteLine("0. Exit");
             Console.WriteLine("1. Create an account");
             Console.WriteLine("2. Deposit");
             Console.WriteLine("3. Withdraw");
+            Console.WriteLine("4. Print All accounts");
             while (true)
             {
                 Console.WriteLine("Please select one of the options from above");
@@ -27,15 +30,18 @@ namespace MyFirstBank
                         return;
 
                     case "1":
-                        Console.WriteLine("Please provide your email address: ");
-                        var email = Console.ReadLine();
-                        var newAccount = new Account(email);
+                        
+                        //var newAccount = new Account(email);
+                        var newAccount = Bank.CreateAccount(email, 0.0M);
                         Console.WriteLine($"The balance in my account {newAccount.AccountNumber} is {newAccount.Balance:C}");
                         Console.ReadLine();
                         break;
                     case "2":
                         break;
                     case "3":
+                        break;
+                    case "4":
+                        Bank.PrintAllAccounts(email);
                         break;
                     default:
                         Console.WriteLine("Sorry, option not available");

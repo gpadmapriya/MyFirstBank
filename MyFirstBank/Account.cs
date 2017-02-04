@@ -10,7 +10,7 @@ namespace MyFirstBank
     /// This class defines an account for MyFirstBank
     /// This is a blueprint
     /// </summary>
-    class Account
+    public class Account
     {
         #region Statics
         private static int LastAccountNumber = 0;
