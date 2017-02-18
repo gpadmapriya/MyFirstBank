@@ -37,6 +37,12 @@ namespace MyFirstBank
                         Console.ReadLine();
                         break;
                     case "2":
+                        Bank.PrintAllAccounts(email);
+                        Console.Write("Select an Account Number: ");
+                        var accountNum = Convert.ToInt32(Console.ReadLine());
+                        Console.Write("Enter an amount to deposit: ");
+                        var amount = Convert.ToDecimal(Console.ReadLine());
+                        Bank.Deposit(accountNum, amount);
                         break;
                     case "3":
                         break;

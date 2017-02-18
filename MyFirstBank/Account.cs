@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,10 +16,12 @@ namespace MyFirstBank
         #region Statics
         private static int LastAccountNumber = 0;
         #endregion
-        
+
         #region Properties
+        [Key]
         public int AccountNumber { get; private set; }
         public string EmailAddress { get; set; }
+        public string AccountName { get; set; }
 
         //if balance is public program.cs can set it which is not desirable
         //if balance is set to private program.cs cannot even read balance to display
@@ -26,7 +29,7 @@ namespace MyFirstBank
         //visual c# how to program for beginners
         public decimal Balance { get; private set; }
         #endregion
-
+        public virtual ICollection<Transaction> Transactions { get; set; }
         #region Methods
         public Account():this("", 0.0M)
         {
