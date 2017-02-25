@@ -18,7 +18,8 @@ namespace MyFirstBank
             Console.WriteLine("1. Create an account");
             Console.WriteLine("2. Deposit");
             Console.WriteLine("3. Withdraw");
-            Console.WriteLine("4. Print All accounts");
+            Console.WriteLine("4. Print All Accounts");
+            Console.WriteLine("5. Print All Transactions");
             while (true)
             {
                 Console.WriteLine("Please select one of the options from above");
@@ -37,17 +38,54 @@ namespace MyFirstBank
                         Console.ReadLine();
                         break;
                     case "2":
-                        Bank.PrintAllAccounts(email);
+                        try
+                        {
+                            PrintAllAccounts(email);
+                            Console.Write("Select an Account Number: ");
+                            var accountNum1 = Convert.ToInt32(Console.ReadLine());
+
+                            Console.Write("Enter an amount to deposit: ");
+                            var amount1 = Convert.ToDecimal(Console.ReadLine());
+                            Bank.Deposit(accountNum1, amount1);
+                        }
+                        catch (FormatException)
+                        {
+                            Console.WriteLine("Invalid Value. Try again!");
+                        }
+                        catch (ArgumentOutOfRangeException ox)
+                        {
+                            Console.WriteLine(ox.Message + "Please try again");
+                        }
+                        catch (ArgumentException ax)
+                        {
+                            Console.WriteLine(ax.Message + "Please try again");
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine("Error: " + e.Message);
+                        }
+                        break;
+                    case "3":
+                        PrintAllAccounts(email);
                         Console.Write("Select an Account Number: ");
                         var accountNum = Convert.ToInt32(Console.ReadLine());
                         Console.Write("Enter an amount to deposit: ");
                         var amount = Convert.ToDecimal(Console.ReadLine());
-                        Bank.Deposit(accountNum, amount);
+                        Bank.Withdraw(accountNum, amount);
                         break;
-                    case "3":
-                        break;
+                        
                     case "4":
-                        Bank.PrintAllAccounts(email);
+                        PrintAllAccounts(email); 
+                        break;
+                    case "5":
+                        PrintAllAccounts(email);
+                        Console.Write("Select an Account Number: ");
+                        accountNum = Convert.ToInt32(Console.ReadLine());
+                        var transactions = Bank.GetAllTransactions(accountNum);
+                        foreach (var tran in transactions)
+                        {
+                            Console.WriteLine($"ID: {tran.TransactionNumber}, Description: {tran.Description}, Type: {tran.TransactionType}, Amount: {tran.Amount}, Date: {tran.TransactionDate}");
+                        }
                         break;
                     default:
                         Console.WriteLine("Sorry, option not available");
@@ -79,6 +117,15 @@ namespace MyFirstBank
 
             Console.ReadLine();
             */
+        }
+
+        static void PrintAllAccounts(string EmailAddress)
+        {
+            var accounts = Bank.GetAllAccounts(EmailAddress);
+            foreach (var a in accounts)
+            {
+                Console.WriteLine($"Account Number: {a.AccountNumber}, Balance: {a.Balance}");
+            }
         }
     }
 }
