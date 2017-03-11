@@ -15,9 +15,12 @@ namespace MyFirstBankUI.Controllers
         private BankDB db = new BankDB();
 
         // GET: Accounts
+        [Authorize]
         public ActionResult Index()
         {
-            return View(db.Accounts.ToList());
+            var accounts = Bank.GetAllAccounts(HttpContext.User.Identity.Name);
+            //return View(db.Accounts.ToList());
+            return View(accounts);
         }
 
         // GET: Accounts/Details/5
@@ -46,12 +49,13 @@ namespace MyFirstBankUI.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "AccountNumber,EmailAddress,AccountName,Balance")] Account account)
+        public ActionResult Create([Bind(Include = "AccountNumber,EmailAddress,AccountName,Balance,TypeOfAccount")] Account account)
         {
             if (ModelState.IsValid)
             {
-                db.Accounts.Add(account);
-                db.SaveChanges();
+                //db.Accounts.Add(account);
+                //db.SaveChanges();
+                Bank.CreateAccount(account.EmailAddress, 0.0M, account.TypeOfAccount);
                 return RedirectToAction("Index");
             }
 

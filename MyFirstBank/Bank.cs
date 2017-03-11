@@ -11,10 +11,12 @@ namespace MyFirstBank
         //private static List<Account> accounts = new List<Account>();
         public static string Name { get; set; }
 
-        public static Account CreateAccount(string emailAddress, decimal amount)
+        public static Account CreateAccount(string accountName, string emailAddress, decimal amount, AccountTypes typeOfAccount)
         {
             var db = new BankDB();
             var account = new Account(emailAddress, amount);
+            account.TypeOfAccount = typeOfAccount;
+            account.AccountName = accountName;
             //accounts.Add(account);
             db.Accounts.Add(account);
             db.SaveChanges();

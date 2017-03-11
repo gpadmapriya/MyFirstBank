@@ -7,6 +7,11 @@ using System.Threading.Tasks;
 
 namespace MyFirstBank
 {
+    public enum AccountTypes
+    {
+        Checking,
+        Savings
+    }
     /// <summary>
     /// This class defines an account for MyFirstBank
     /// This is a blueprint
@@ -28,6 +33,7 @@ namespace MyFirstBank
         //so set balance to public but the set method to private
         //visual c# how to program for beginners
         public decimal Balance { get; private set; }
+        public AccountTypes TypeOfAccount { get; set; }
         #endregion
         public virtual ICollection<Transaction> Transactions { get; set; }
         #region Methods
