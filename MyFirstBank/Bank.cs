@@ -22,6 +22,17 @@ namespace MyFirstBank
             db.SaveChanges();
             return account;
         }
+
+        public static void EditAccount(Account account)
+        {
+            var db = new BankDB();
+            var oldAccount = db.Accounts.Find(account.AccountNumber);
+            
+            oldAccount.AccountName = account.AccountName;
+            oldAccount.TypeOfAccount = account.TypeOfAccount;
+            db.Entry(oldAccount).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
+        }
         /// <summary>
         /// 
         /// </summary>

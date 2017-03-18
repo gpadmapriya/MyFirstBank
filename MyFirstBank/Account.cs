@@ -48,7 +48,7 @@ namespace MyFirstBank
         }
         public Account(string EmailAddress, decimal balance)
         {
-            this.AccountNumber = ++LastAccountNumber;
+            //this.AccountNumber = ++LastAccountNumber;
             this.EmailAddress = EmailAddress;
             this.Balance = balance;
         }

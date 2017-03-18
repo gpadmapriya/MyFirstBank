@@ -55,7 +55,7 @@ namespace MyFirstBankUI.Controllers
             {
                 //db.Accounts.Add(account);
                 //db.SaveChanges();
-                Bank.CreateAccount(account.EmailAddress, 0.0M, account.TypeOfAccount);
+                Bank.CreateAccount(account.AccountName, account.EmailAddress, 0.0M, account.TypeOfAccount);
                 return RedirectToAction("Index");
             }
 
@@ -70,6 +70,7 @@ namespace MyFirstBankUI.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Account account = db.Accounts.Find(id);
+            
             if (account == null)
             {
                 return HttpNotFound();
@@ -82,17 +83,22 @@ namespace MyFirstBankUI.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "AccountNumber,EmailAddress,AccountName,Balance")] Account account)
+        public ActionResult Edit([Bind(Include = "EmailAddress,AccountName,Balance,TypeOfAccount")] Account account)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(account).State = EntityState.Modified;
-                db.SaveChanges();
+                //db.Entry(account).State = EntityState.Modified;
+                //db.SaveChanges();
+                Bank.EditAccount(account);
                 return RedirectToAction("Index");
             }
             return View(account);
         }
-
+        public ActionResult Transactions(int? id)
+        {
+            var transactions = Bank.GetAllTransactions(id.Value);
+            return View(transactions);
+        }
         // GET: Accounts/Delete/5
         public ActionResult Delete(int? id)
         {
