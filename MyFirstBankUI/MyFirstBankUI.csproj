@@ -272,6 +272,8 @@
     <Content Include="Views\Accounts\Create.cshtml" />
     <Content Include="Views\Accounts\Edit.cshtml" />
     <Content Include="Views\Accounts\Transactions.cshtml" />
+    <Content Include="Views\Accounts\Deposit.cshtml" />
+    <Content Include="Views\Accounts\Withdraw.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

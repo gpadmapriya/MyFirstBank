@@ -120,5 +120,11 @@ namespace MyFirstBank
             return db.Transactions.Where(t => t.AccountNumber == accountNumber).OrderByDescending(t => t.TransactionDate);
             
         }
+
+        public static Account GetAccountByAccountNumber(int accountNumber)
+        {
+            var db = new BankDB();
+            return db.Accounts.Where(a => a.AccountNumber == accountNumber).FirstOrDefault();
+        }
     }
 }

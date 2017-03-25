@@ -83,7 +83,7 @@ namespace MyFirstBankUI.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "EmailAddress,AccountName,Balance,TypeOfAccount")] Account account)
+        public ActionResult Edit([Bind(Include = "EmailAddress,AccountNumber,AccountName,Balance,TypeOfAccount")] Account account)
         {
             if (ModelState.IsValid)
             {
@@ -98,6 +98,42 @@ namespace MyFirstBankUI.Controllers
         {
             var transactions = Bank.GetAllTransactions(id.Value);
             return View(transactions);
+        }
+
+        //GET
+        public ActionResult Deposit(int? id)
+        {
+            var account = Bank.GetAccountByAccountNumber(id.Value);
+            return View(account);
+        }
+
+        //POST
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Deposit(FormCollection controls)
+        {
+            var accountNumber = Convert.ToInt32(controls["AccountNumber"]);
+            var amount = Convert.ToDecimal(controls["Amount"]);
+            Bank.Deposit(accountNumber, amount);
+            return RedirectToAction("Index");
+        }
+
+        //GET
+        public ActionResult Withdraw(int? id)
+        {
+            var account = Bank.GetAccountByAccountNumber(id.Value);
+            return View(account);
+        }
+
+        //POST
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Withdraw(FormCollection controls)
+        {
+            var accountNumber = Convert.ToInt32(controls["AccountNumber"]);
+            var amount = Convert.ToDecimal(controls["Amount"]);
+            Bank.Withdraw(accountNumber, amount);
+            return RedirectToAction("Index");
         }
         // GET: Accounts/Delete/5
         public ActionResult Delete(int? id)

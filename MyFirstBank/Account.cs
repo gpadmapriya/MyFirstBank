@@ -24,7 +24,7 @@ namespace MyFirstBank
 
         #region Properties
         [Key]
-        public int AccountNumber { get; private set; }
+        public int AccountNumber { get; set; }
         public string EmailAddress { get; set; }
         public string AccountName { get; set; }
 
